@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">weekend</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Ranking</p>
+              <h4 class="mb-0">2822</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than mates</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Score</p>
+              <h4 class="mb-0">{{ score }}</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than mates</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">person</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Level</p>
+              <h4 class="mb-0">{{ proficiency_level }}</h4>
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-sm-6">
+        <div class="card">
+          <div class="card-header p-3 pt-2">
+            <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+              <i class="material-icons opacity-10">weekend</i>
+            </div>
+            <div class="text-end pt-1">
+              <p class="text-sm mb-0 text-capitalize">Strength</p>
+              {% for strength in strengths %}
+              <h4 class="mb-0">{{ strength }}</h4>
+              {% endfor %}
+
+            </div>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer p-3">
+            <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+5% </span>than yesterday</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <div class="row mt-4">
+      <div class="col-lg-6 col-md-8 mt-4 mb-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+              <div class="card mb-6">
+                  <div class="card-body p-3">
+                      <h5>Areas of Strength</h5>
+                      <div class="chart">
+                          <canvas id="strengthsChart" class="chart-canvas"></canvas>
+                      </div>
+                  </div>
+              </div>
+          </div>        
+      </div>
+      <div class="col-lg-6 col-md-8 mt-4 mb-4">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+              <div class="card mb-6">
+                  <div class="card-body p-3">
+                      <h5>Areas for Improvement</h5>
+                      <div class="chart">
+                          <canvas id="improvementsChart" class="chart-canvas"></canvas>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+          <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var strengthsLabels = {{ strengths | safe }};
+                var improvementsLabels = {{ improvements | safe }};
+            
+                // A simple function to generate a distinct background color array
+                function generateBackgroundColors(count) {
+                    const colors = ['#4caf50', '#2196f3', '#ffeb3b', '#ff9800', '#f44336'];
+                    let bgColors = [];
+                    for (let i = 0; i < count; i++) {
+                        bgColors.push(colors[i % colors.length]);
+                    }
+                    return bgColors;
+                }
+            
+                var strengthsChartData = {
+                    labels: strengthsLabels,
+                    datasets: [{
+                        data: strengthsLabels.map(() => 1), // Assuming equal value for simplicity; you might want to adjust
+                        backgroundColor: generateBackgroundColors(strengthsLabels.length),
+                        hoverOffset: 4
+                    }]
+                };
+            
+                var improvementsChartData = {
+                    labels: improvementsLabels,
+                    datasets: [{
+                        data: improvementsLabels.map(() => 1), // Assuming equal value for simplicity; adjust as necessary
+                        backgroundColor: generateBackgroundColors(improvementsLabels.length),
+                        hoverOffset: 4
+                    }]
+                };
+            
+                var ctxStrengths = document.getElementById('strengthsChart').getContext('2d');
+                var strengthsChart = new Chart(ctxStrengths, {
+                    type: 'doughnut',
+                    data: strengthsChartData,
+                });
+            
+                var ctxImprovements = document.getElementById('improvementsChart').getContext('2d');
+                var improvementsChart = new Chart(ctxImprovements, {
+                    type: 'doughnut',
+                    data: improvementsChartData,
+                });
+            });
+            </script>
+            
+            
+{% endblock %}

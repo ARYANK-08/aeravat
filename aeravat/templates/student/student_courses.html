@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div id="content-page" class="content-page">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="iq-card-body">
+              <div class="iq-card">
+        <h1>Courses</h1>
+        <div class="iq-card-body">
+
+        <form id="time-filter-form">
+          
+            <div class="form-group">
+              <label>Filter by Time:</label><br>
+              <input type="checkbox" id="time-0-10" name="time" value="0-10">
+              <label for="time-0-10">0-10 mins</label><br>
+              <input type="checkbox" id="time-10-30" name="time" value="10-30">
+              <label for="time-10-30">10-30 mins</label><br>
+              <input type="checkbox" id="time-30-60" name="time" value="30-60">
+              <label for="time-30-60">30-60 mins</label><br>
+              <input type="checkbox" id="time-60+" name="time" value="60+">
+              <label for="time-60+">More than 60 mins</label>
+            </div>
+          </form>
+          
+          <div class="row" id="course-cards">
+            {% for course in courses %}
+                <div class="col-sm-4 course-card" data-length="{{ course.length }}">
+                   <div class="card iq-mb-3">
+                    {% if course.link %}
+                    {% with video_id=course.link|cut:"https://www.youtube.com/watch?v=" %}
+                    <iframe src="https://www.youtube.com/embed/{{ video_id }}?autoplay=0&mute=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen height="280"></iframe>
+                    {% endwith %}
+                    {% endif %}                      
+                    <div class="card-body">
+                         <h4 class="card-title">{{ course.title }}</h4>
+                         <p class="card-text">Views: {{ course.views }}</p>
+                         <a href="{{ course.link }}" class="btn dark-icon btn-primary" target="_blank">Watch</a>
+                        </div>
+                   </div>
+                </div>
+            {% empty %}
+            <p>No courses found.</p>
+            {% endfor %}
+          </div>
+      </div>
+  </div>
+<script>
+ document.querySelectorAll('#time-filter-form input[type="checkbox"]').forEach(function(checkbox) {
+  checkbox.addEventListener('change', function() {
+    filterCourses();
+  });
+});
+
+function filterCourses() {
+  var checkboxes = document.querySelectorAll('#time-filter-form input[type="checkbox"]:checked');
+  var filters = Array.from(checkboxes).map(function(checkbox) { return checkbox.value; });
+  var courseCards = document.querySelectorAll('.course-card');
+
+  courseCards.forEach(function(card) {
+    var length = parseInt(card.getAttribute('data-length'), 10);
+    var display = false;
+
+    if (filters.length === 0) {
+      display = true;
+    } else {
+      for (let filter of filters) {
+        if (filter === '0-10' && length <= 10) {
+          display = true;
+          break;
+        } else if (filter === '10-30' && length > 10 && length <= 30) {
+          display = true;
+          break;
+        } else if (filter === '30-60' && length > 30 && length <= 60) {
+          display = true;
+          break;
+        } else if (filter === '60+' && length > 60) {
+          display = true;
+          break;
+        }
+      }
+    }
+
+    card.style.display = display ? 'block' : 'none';
+  });
+}
+
+// Initially call filterCourses to apply the filter on page load if any checkbox is already checked.
+filterCourses();
+</script>
+{% endblock %}

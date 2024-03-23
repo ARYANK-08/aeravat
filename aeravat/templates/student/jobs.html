@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="iq-card-body">
+                <div class="iq-card">
+                    <div class="iq-card-header d-flex justify-content-between">
+                       <div class="iq-header-title">
+                          <h4 class="card-title">Search Jobs :)</h4>
+                       </div>
+                    </div>
+                    <div class="iq-card-body">
+                        <form method="post" action="">
+                            {% csrf_token %}
+                            <div class="row">
+                             <div class="col">
+                                <label for="jobType">Job Type:</label>
+                                <input type="text" class="form-control" id="jobType" name="job_type" placeholder="E.g., Backend Developer" required>
+                                                         </div>
+                             <div class="col">
+                                <label for="location">Location:</label>
+                                <input type="text" class="form-control" id="location" name="location" placeholder="E.g., Mumbai, Maharashtra, India" required>
+                                                         </div>
+
+                          </div>                                                         
+                          <button type="submit" class="btn btn-primary">Search</button>
+
+                       </form>
+                    </div>
+                 </div>
+                
+
+
+    {% if jobs %}
+
+
+            <div class="row">
+
+                    <div class="iq-card">
+                        <div class="iq-card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title">Job Listings</h4>
+                            </div>
+                        </div>
+                        <div class="iq-card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Title</th>
+                                        <th>Company Name</th>
+                                        <th>Role</th>
+                                        <th>Link</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for job in jobs %}
+                                    <tr>
+                                        {% if job.thumbnail %}
+                                            <td><img src="{{ job.thumbnail }}" alt="{{ job.company_name }}" style="max-width: 100px;"></td>
+                                        {% else %}
+                                            <td><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_0HvCCSj9gEOrWNZkwtHu4J1LffvlO667BER_RP7bqUaAI4qdWFxsmwVXkpugBCYhb6I&usqp=CAU" alt="Default Thumbnail" style="max-width: 100px;"></td>
+                                        {% endif %}
+                                        <td>{{ job.title }}</td>
+                                        <td>{{ job.company_name }}</td>
+                                        <td>{{ job.description|truncatechars:100 }}</td>
+                                        {% if job.related_links %}
+                                            <td>
+                                                {% for link in job.related_links %}
+                                                    <a class="btn btn-primary" href="{{ link.link }}" target="_blank">Apply</a>
+                                                {% endfor %}
+                                            </td>
+                                        {% else %}
+                                            <td>No related links available</td>
+                                        {% endif %}
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+      
+    
+    {% endif %}
+</div>
+{% endblock %}

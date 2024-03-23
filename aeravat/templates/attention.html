@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attention Span Tracking</title>
+</head>
+<body>
+
+<div style="display: flex; justify-content: space-around; align-items: start;">
+    <!-- Video Display -->
+    <div id="video-container">
+        <h2>Webcam Feed</h2>
+        <video id="webcam-video" autoplay style="width: 640px; height: 480px;"></video>
+    </div>
+
+    <!-- Attention Span Tracking Output -->
+    <div id="attention-output">
+        <h2>Attention Span Tracking</h2>
+        <p id="attention-span"></p>
+    </div>
+</div>
+
+<script>
+    // Get video element
+    const video = document.getElementById('webcam-video');
+
+    // Check if browser supports getUserMedia
+    if (navigator.mediaDevices.getUserMedia) {
+        // Access webcam
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function(stream) {
+                // Assign stream to video element
+                video.srcObject = stream;
+            })
+            .catch(function(err) {
+                console.log("Error accessing webcam: ", err);
+            });
+    } else {
+        alert("getUserMedia is not supported in this browser.");
+    }
+
+    // Update attention span
+    setInterval(function() {
+        // Make an AJAX request to update attention span
+        fetch('/update_attention_span')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('attention-span').textContent = `Attention Span: ${data.span} seconds`;
+            })
+            .catch(error => {
+                console.error('Error updating attention span:', error);
+            });
+    }, 1000);  // Update every second
+</script>
+
+</body>
+</html>

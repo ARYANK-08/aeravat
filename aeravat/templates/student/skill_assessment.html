@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+
+        <div class="row">
+            <!-- Left Column for Test Cases and Questions -->
+            <div class="col-md-6">
+                <div>
+                    <h1>{{ quiz.title }}</h1>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% for question in questions %}
+                            <div>
+                                <p>{{ question.text }}</p>
+                                {% for choice in question.choice_set.all %}
+                                    <input type="radio" name="{{ question.id }}" value="{{ choice.id }}">
+                                    <label>{{ choice.choice_text }}</label><br>
+                                {% endfor %}
+                            </div>
+                        {% endfor %}
+                        <input type="submit" value="Submit">
+                    </form>
+                </div>
+            </div>
+<iframe id="compilerFrame"
+    frameBorder="0"
+    height="600px"
+    src="https://onecompiler.com/embed/"
+    width="100%">
+</iframe>
+<!-- Include modal structure within the skill assessment HTML template -->
+
+
+<!-- JavaScript to handle the modal and load quiz results -->
+
+
+{% endblock %}

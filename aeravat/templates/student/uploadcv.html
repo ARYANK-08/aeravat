@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload PDF</title>
+</head>
+<body>
+    <h1>Upload PDF</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="pdf_file" accept=".pdf">
+        <button type="submit">Upload</button>
+
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ info.name|default_if_none:'' }}">
+        </div>
+        <div>
+            <label for="linkedin">LinkedIn Profile:</label>
+            <input type="text" id="linkedin" name="linkedin_profile" value="{{ info.linkedin_profile|default_if_none:'' }}">
+        </div>
+        <div>
+            <label for="skills">Skills:</label>
+            <input type="text" id="skills" name="skills" value="{{ info.skills|join:', '|default_if_none:'' }}">
+        </div>
+        <!-- You can add more form fields as needed -->
+
+
+    <!-- Optionally, display projects or other information below or in another section of the form -->
+{% block content %}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <form method="post" enctype="multipart/form-data" action="{% url 'upload_pdf' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="pdf_file">CV Upload:</label>
+                    <input type="file" class="form-control-file" id="pdf_file" name="pdf_file" accept=".pdf">
+                </div>
+                <button type="submit" class="btn btn-primary">Upload and Autofill</button>
+            </form>
+            <hr>
+            <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label" for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{ info.name|default_if_none:'' }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label" for="linkedin">LinkedIn Profile:</label>
+                            <input type="text" class="form-control" id="linkedin" name="linkedin_profile" value="{{ info.linkedin_profile|default_if_none:'' }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label" for="email">Email:</label>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ info.email|default_if_none:'' }}">
+                        </div>
+                    </div>
+                       
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label" for="current_year">Current Year of Engineering:</label>
+                            <input type="number" class="form-control" id="current_year" name="current_year" value="{{ info.current_year|default_if_none:'' }}" min="1" max="4">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label" for="placement_year">Placement Year:</label>
+                            <input type="number" class="form-control" id="placement_year" name="placement_year" value="{{ info.placement_year|default_if_none:'' }}" min="2020">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Desired Job Role</label>
+                            <input type="text" class="form-control" name="desired_role">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Preferred Industry</label>
+                            <input type="text" class="form-control" name="preferred_industry">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group input-group-outline my-3">
+                            <label class="form-label">Technology Interests</label>
+                            <input type="text" class="form-control" name="technology_interests">
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group input-group-outline my-3">
+                    <label class="form-label" for="skills">Skills:</label>
+                    <input type="text" class="form-control" id="skills" name="skills" value="{% for skill in info.skills %}{{ skill }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Submit</button>
+                </div>
+            </form>
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+              
+{% endblock %}
