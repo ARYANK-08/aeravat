@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI interview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #chat-container {
+            width: 80%;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .chat-bubble {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+        .chat-bubble.question {
+            background-color: #f2f2f2;
+        }
+        .chat-bubble.response {
+            background-color: #e6f7ff;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Interview</h1>
+    <div class="card mt-4" id="card">
+        <!-- Card image -->
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+          <img class="border-radius-lg w-50" src="{% static 'assets/img/avatar18.gif' %}" alt="Image placeholder">
+          <!-- List group -->
+          <!-- <ul class="list-group list-group-flush mt-2">
+             <li class="list-group-item">Cras justo odio</li>
+             <li class="list-group-item">Dapibus ac facilisis in</li>
+             <li class="list-group-item">Vestibulum at eros</li>
+          </ul> -->
+         </div>
+        <!-- Card body -->
+        <!-- <div class="card-body">
+         <h4 class="font-weight-normal mt-3">Card title</h4>
+         <p class="card-text mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis non dolore est fuga nobis ipsum illum eligendi nemo iure repellat, soluta, optio minus ut reiciendis voluptates enim impedit veritatis officiis.</p>
+         <a href="#" class="btn btn-primary" id="start-asking-button">Go somewhere</a>
+        </div> -->
+     </div>
+ <br><br><br>
+    <div id="chat-container"></div>
+    <button class="btn btn-primary" id="start-asking">Start Asking</button>
+    <button class="btn btn-primary" id="next-question" disabled>Next Question</button>
+    <button class="btn btn-primary" id="start-speaking" disabled>Start Speaking</button>
+    <button class="btn btn-primary" id="stop-speaking" disabled>Stop Speaking</button>
+
+    
+    <script>
+        let recognition = null;
+        let currentQuestionIndex = 0;
+        let chatContainer = document.getElementById("chat-container");
+
+        function startSpeaking() {
+            recognition = new webkitSpeechRecognition();
+            recognition.onresult = function(event) {
+                let transcript = event.results[0][0].transcript;
+                displayResponse(transcript);
+                recognition.stop();
+                document.getElementById("start-speaking").disabled = true;
+                document.getElementById("stop-speaking").disabled = true;
+                document.getElementById("next-question").disabled = false; // Enable Next Question button
+            };
+            recognition.start();
+            document.getElementById("start-speaking").disabled = true;
+            document.getElementById("stop-speaking").disabled = false;
+        }
+
+        function stopSpeaking() {
+            if (recognition) {
+                recognition.stop();
+                document.getElementById("start-speaking").disabled = false;
+                document.getElementById("stop-speaking").disabled = true;
+                document.getElementById("next-question").disabled = true; // Disable Next Question button
+            }
+        }
+
+        async function askNextQuestion() {
+            document.getElementById("next-question").disabled = true; // Disable Next Question button
+            let response = await fetch("{% url 'question_view' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `question_index=${currentQuestionIndex}`
+            });
+            let data = await response.json();
+            if (data.error) {
+                displayError("Error: " + data.error);
+                return;
+            }
+            if (data.all_questions_asked) {
+                displayResponse("All questions have been asked.");
+                document.getElementById("next-question").disabled = true; // Disable Next Question button
+                document.getElementById("start-speaking").disabled = true;
+            } else {
+                displayQuestion(data.question);
+                currentQuestionIndex = data.question_index;
+                document.getElementById("start-speaking").disabled = false; // Enable Start Speaking button
+                document.getElementById("stop-speaking").disabled = true;
+            }
+        }
+
+        function displayQuestion(question) {
+    let bubble = document.createElement("div");
+    bubble.classList.add("chat-bubble", "question");
+    bubble.innerHTML = "<h4 class='font-weight-normal mt-3'>" + question + "</h4>";
+    chatContainer.appendChild(bubble);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+
+function displayResponse(response) {
+    let bubble = document.createElement("div");
+    bubble.classList.add("chat-bubble", "response");
+    bubble.innerHTML = "Your response: <li class='list-group-item'>" + response + "</li>";
+    chatContainer.appendChild(bubble);
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+}
+
+
+        function displayError(error) {
+            let bubble = document.createElement("div");
+            bubble.classList.add("chat-bubble", "error");
+            bubble.textContent = error;
+            chatContainer.appendChild(bubble);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        document.getElementById("start-asking").addEventListener("click", function() {
+            this.disabled = true; // Disable Start Asking button
+            askNextQuestion();
+        });
+
+        document.getElementById("next-question").addEventListener("click", function() {
+            askNextQuestion();
+        });
+
+        document.getElementById("start-speaking").addEventListener("click", function() {
+            startSpeaking();
+        });
+
+        document.getElementById("stop-speaking").addEventListener("click", function() {
+            stopSpeaking();
+        });
+
+        // Integrating the card interaction
+        document.getElementById("start-asking-button").addEventListener("click", function() {
+            document.getElementById("start-asking").click();
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

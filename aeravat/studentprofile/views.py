@@ -115,7 +115,7 @@ def upload_pdf(request):
 
 
             student_profile.save()  # This line is technically redundant as `create()` saves the model instance already.
-            return HttpResponse('Profile saved successfully!')
+            return redirect('/quiz/2/')  # Directly using the hardcoded URL for redirection
 
     else:
         # If it's a GET request, just show the form
@@ -128,6 +128,7 @@ from .models import Quiz, UserAnswer, StudentProfile, Question
 
 def calculate_score(correct_answers, total_questions):
     return (correct_answers / total_questions * 100) if total_questions else 0
+
 from django.shortcuts import redirect
 
 
@@ -318,3 +319,33 @@ def job_listings(request):
     return render(request, 'student/jobs.html', {'jobs': jobs})
 
 
+def dashboard(request):
+    return render(request, 'student/dashboard.html')
+
+from django.shortcuts import render
+import requests
+
+import requests
+from requests.exceptions import ConnectTimeout, RequestException
+from django.shortcuts import render
+
+def profile(request):
+    context = {}
+    if 'username' in request.GET:
+        username = request.GET['username']
+        url = f"https://api.github.com/users/{username}/repos"
+        try:
+            response = requests.get(url)
+            response.raise_for_status()  # Raise an exception for non-200 status codes
+            repos = response.json() if response.status_code == 200 else []
+            context['repos'] = repos
+        except ConnectTimeout:
+            error_message = "Connection to GitHub API timed out. Please try again later."
+            context['error'] = error_message
+        except RequestException as e:
+            error_message = f"An error occurred while fetching data from GitHub API: {e}"
+            context['error'] = error_message
+    return render(request, 'student/profile.html', context)
+
+def landing(request):
+    return render(request, 'landing.html')

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="card-group">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mx-3">
+      {% for week, task in weeks_dict.items %}
+      <div class="col">
+        <div class="card" data-animation="true">
+          <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+            <a class="d-block blur-shadow-image">
+              <img src="https://source.unsplash.com/500x600/?technology" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+            </a>
+            <div class="colored-shadow" style="background-image: url(&quot;https://source.unsplash.com/500x600/?technology&quot;);"></div>
+          </div>
+          <div class="card-body text-center">
+            <div class="d-flex mt-n6 mx-auto">
+              <a class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Refresh">
+                <i class="material-icons text-lg">refresh</i>
+              </a>
+              <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit">
+                <i class="material-icons text-lg">edit</i>
+              </button>
+            </div>
+            <h5 class="font-weight-normal mt-3">
+              <a href="javascript:;">{{ week|safe }}</a>
+            </h5>
+            <p class="mb-0">
+              {{ task|safe }}
+            </p>
+          </div>
+          <hr class="dark horizontal my-0">
+          <div class="card-footer d-flex">
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

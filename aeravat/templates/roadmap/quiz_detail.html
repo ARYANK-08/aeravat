@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .page-container {
+        max-width: 800px; /* Adjust the width as needed */
+        max-height: 650px; /* Adjust the maximum height as needed */
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid #ccc; /* Border color and width */
+        border-radius: 10px; /* Rounded corners */
+        background-color: #f9f9f9; /* Background color */
+        overflow-y: auto; /* Add vertical scroll if content exceeds max height */
+    }
+</style>
+
+<div class="page-container">
+    <center>
+        <h1>{{ quiz.title }}</h1>
+        <p>Category: {{ quiz.category }}</p>
+    </center>
+
+    <form method="post" action="{% url 'save_response' %}">
+        {% csrf_token %}
+        <h2>Questions</h2>
+        {% if quiz.question_set.all %}
+            {% for question in quiz.question_set.all %}
+                <div>
+                    <p>{{ question.text }}</p>
+                    <ul>
+                    {% for option in question.option_set.all %}
+                        <li>
+                            <input type="radio" id="option{{ option.id }}" name="question_{{ question.id }}" value="{{ option.id }}">
+                            <label for="option{{ option.id }}">{{ option.text }}</label>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+            <center>
+                <button type="submit">Submit</button>
+            </center>
+        {% else %}
+            <p>No questions available for this quiz.</p>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

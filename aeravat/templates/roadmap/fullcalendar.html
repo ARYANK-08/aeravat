@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>FullCalendar by Creative Tim</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <link href="{% static 'assets/css/fullcalendar.css' %}" rel='stylesheet' />
+    <link href="{% static 'assets/css/fullcalendar.print.css' %}" rel='stylesheet' media='print' />
+    <script src="{% static 'assets/js/jquery-1.10.2.js'%}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/jquery-ui.custom.min.js'%}" type="text/javascript"></script>
+    <script src="{% static 'assets/js/fullcalendar.js'%}" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            var date = new Date();
+            var d = date.getDate();
+            var m = date.getMonth();
+            var y = date.getFullYear();
+
+            var eventsData = JSON.parse('{{ events_json|escapejs }}');
+            var dynamicEvents = [];
+
+            for (const eventId in eventsData) {
+                if (eventsData.hasOwnProperty(eventId)) {
+                    const eventData = eventsData[eventId];
+                    dynamicEvents.push({
+                        title: eventData.title,
+                        start: new Date(eventData.start),
+                        end: new Date(eventData.end),
+                        allDay: false,
+                        className: 'info'
+                    });
+                }
+            }
+
+            /* initialize the calendar */
+            var calendar = $('#calendar').fullCalendar({
+                header: {
+                    left: 'title',
+                    center: 'agendaDay,agendaWeek,month',
+                    right: 'prev,next today'
+                },
+                editable: true,
+                firstDay: 1,
+                selectable: true,
+                defaultView: 'month',
+                axisFormat: 'h:mm',
+                columnFormat: {
+                    month: 'ddd',
+                    week: 'ddd d',
+                    day: 'dddd M/d',
+                    agendaDay: 'dddd d'
+                },
+                titleFormat: {
+                    month: 'MMMM yyyy',
+                    week: "MMMM yyyy",
+                    day: 'MMMM yyyy'
+                },
+                allDaySlot: false,
+                selectHelper: true,
+                select: function(start, end, allDay) {
+                    var title = prompt('Event Title:');
+                    if (title) {
+                        calendar.fullCalendar('renderEvent',
+                            {
+                                title: title,
+                                start: start,
+                                end: end,
+                                allDay: allDay
+                            },
+                            true
+                        );
+                    }
+                    calendar.fullCalendar('unselect');
+                },
+                droppable: true,
+                drop: function(date, allDay) {
+                    var originalEventObject = $(this).data('eventObject');
+                    var copiedEventObject = $.extend({}, originalEventObject);
+                    copiedEventObject.start = date;
+                    copiedEventObject.allDay = allDay;
+                    $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+                    if ($('#drop-remove').is(':checked')) {
+                        $(this).remove();
+                    }
+                },
+                events: dynamicEvents // Set the events to dynamicEvents
+            });
+        });
+    </script>
+    <style>
+        body {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            font-family: "Helvetica Nueue", Arial, Verdana, sans-serif;
+            background-color: #DDDDDD;
+        }
+
+        #wrap {
+            width: 1100px;
+            margin: 0 auto;
+        }
+
+        #calendar {
+            margin: 0 auto;
+            width: 900px;
+            background-color: #FFFFFF;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px #C3C3C3;
+        }
+    </style>
+</head>
+<body>
+    <div id='wrap'>
+        <div id='calendar'></div>
+        <div style='clear:both'></div>
+    </div>
+</body>
+</html>

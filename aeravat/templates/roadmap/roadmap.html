@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+    Talk with PDF
+{% endblock title %}
+
+{% block content %}
+<style>
+    #container {
+        width: 90%; /* Adjust the width as needed */
+        max-width: 900px; /* Maximum width for responsiveness */
+        background-color: #fff; /* White background color */
+        border: 3px solid #6546d2; /* Thicker blue border */
+        border-radius: 15px; /* Rounded corners */
+        padding: 40px; /* Increase padding for a better look */
+        box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+        margin: auto; /* Center the container horizontally */
+        margin-top: 50px; /* Add some top margin */
+        position: fixed; /* Fix the container position */
+        top: 50%; /* Center vertically */
+        left: 50%; /* Center horizontally */
+        transform: translate(-50%, -50%); /* Center the container precisely */
+        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: calc(100vh - 100px); /* Set maximum height for responsiveness */
+    }
+
+    h1 {
+        color: #007bff; /* Blue color for the heading */
+        text-align: center;
+        margin-bottom: 20px; /* Add space below the heading */
+    }
+
+    form {
+        margin-top: 20px; /* Add some space between heading and form */
+    }
+
+    .form-group {
+        margin-bottom: 20px; /* Add space between form groups */
+    }
+
+    /* Style for input fields */
+    input[type="file"],
+    textarea {
+        width: 100%;
+        padding: 15px; /* Increase padding for input fields */
+        margin-top: 10px; /* Adjust margin-top for input fields */
+        margin-bottom: 20px; /* Adjust margin-bottom for input fields */
+        border: 1px solid #007bff; /* Blue border color */
+        border-radius: 8px; /* Adjust border-radius for input fields */
+        transition: border-color 0.3s ease-in-out;
+    }
+
+    input[type="file"]:focus,
+    textarea:focus {
+        border-color: #0056b3; /* Darker blue border color on focus */
+    }
+
+    button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div id="content-page" class="content-page">
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-sm-12 col-lg-6">
+             
+            <div class="iq-card">
+                <h1>PDF Viewer</h1>
+                <iframe src="{{ url }}" width="100%" height="650px"></iframe>            
+            </div>
+          </div>
+
+          <div class="col-sm-12 col-lg-6">
+            <h1 class="mb-4">PDF Chat</h1>
+
+            <div class="card" data-animation="true">
+
+            <div class="iq-card" style="overflow-y: auto; max-height:750px;">
+                <form method="post"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="user_question" rows="4" class="form-control" placeholder="Ask a question"></textarea>
+                    </div>
+                    <button type="submit" class="btn dark-icon btn-primary mb-3">Submit</button>
+                </form>
+        
+                {% if result %}
+                    <div class="mt-4">
+                        <h2>Response:</h2>
+                        <p id="response-text" class="lead">{{ result|linebreaksbr }}</p>
+                    </div>
+                {% endif %}
+        
+                {% if related_content %}
+                    <div class="mt-4">
+                        <h2>Related Content:</h2>
+                        <ul class="list-group">
+                            {% for content in related_content %}
+                                <li class="list-group-item">{{ content }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var responseTextElement = document.getElementById('response-text');
+        if (responseTextElement) {
+            // Split the response text by '**' and join with '<br>' to put each part on a new line
+            responseTextElement.innerHTML = responseTextElement.innerHTML.split('*').join('');
+        }
+    });
+</script>
+
+{% endblock %}
+{% comment %} <div id="content-page" class="content-page"> {% endcomment %}
+    <div class="container-fluid">
+       <div class="row">
+          <div class="col-sm-12 col-lg-6">
+             
+          
+          </div>
+          <div class="col-sm-12 col-lg-6">
+             <div class="iq-card">
+                <div class="iq-card-header d-flex justify-content-between">
+                   <div class="iq-header-title">
+                      <h4 class="card-title">Horizontal Form</h4>
+                   </div>
+                </div>
+                <div class="iq-card-body">
+                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vulputate, ex ac venenatis mollis, diam nibh finibus leo</p>
+                   <form class="form-horizontal" action="/action_page.php">
+                      <div class="form-group row">
+                         <label class="control-label col-sm-2 align-self-center mb-0" for="email">Email:</label>
+                         <div class="col-sm-10">
+                            <input type="email" class="form-control" id="email" placeholder="Enter Your  email">
+                         </div>
+                      </div>
+                      <div class="form-group row">
+                         <label class="control-label col-sm-2 align-self-center mb-0" for="pwd1">Password:</label>
+                         <div class="col-sm-10">
+                            <input type="password" class="form-control" id="pwd1" placeholder="Enter Your password">
+                         </div>
+                      </div>
+                      <div class="form-group">
+                            <div class="checkbox">
+                               <label><input type="checkbox"> Remember me</label>
+                            </div>
+                      </div>
+                      <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit" class="btn iq-bg-danger">cancle</button>
+                      </div>
+                   </form>
+                </div>
+             </div>
+             

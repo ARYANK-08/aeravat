@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz List</title>
+</head>
+<body>
+    <h1>Quiz List</h1>
+    <ul>
+    {% for quiz in quizzes %}
+        <li><a href="{% url 'quiz_detail' quiz.id %}">{{ quiz.title }}</a></li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
+
+{% endblock %}

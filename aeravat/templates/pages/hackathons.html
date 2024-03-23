@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon List</title>
+</head>
+<body>
+    <br><br><br>
+    <h1 class="text-center ">HACKATHONS</h1>
+    <br><br><br>
+    <div class="container">
+        <div class="row">
+            {% for hackathon in hackathons %}
+            <div class="col-md-4">
+                <div class="card" data-animation="true">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                        <a class="d-block blur-shadow-image">
+                            <img src="https://media.licdn.com/dms/image/D4D22AQHqyFwyUSUC_g/feedshare-shrink_1280/0/1708953862958?e=1714003200&v=beta&t=cWbYLI13XQM46OxKVtzX0qsujL9fVSY4UQc2oPUT1w4" alt="img-blur-shadow" class="img-fluid shadow border-radius-lg">
+                        </a>
+                        <div class="colored-shadow" style="background-image: url('{{ hackathon.image_url }}');"></div>
+                    </div>
+                    <div class="card-body text-center">
+                        <h5 class="font-weight-normal mt-3">
+                            <a class="btn btn-primary" href="{{ hackathon.link }}">{{ hackathon.title }}</a>
+                        </h5>
+                        <ul class="list-group list-group-flush mt-2">
+                            <li class="list-group-item">{{ hackathon.date }}</li>
+                            <li class="list-group-item">{{ hackathon.category }}</li>
+                            <li class="list-group-item">{{ hackathon.participating }}</li>
+                         </ul>
+                        <!-- <p class="mb-0">{{ hackathon.date }}</p>
+                        <p class="mb-0">{{ hackathon.category }}</p>
+                        <p class="mb-0">{{ hackathon.participating }}</p> -->
+                    </div>
+                    <hr class="dark horizontal my-0">
+                    <div class="card-footer d-flex">
+                        <p class="font-weight-normal my-auto">{{ hackathon.price }}</p>
+                        <!-- <i class="material-icons position-relative ms-auto text-lg me-1 my-auto">place</i> -->
+                        <p class="text-sm my-auto">{{ hackathon.location }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

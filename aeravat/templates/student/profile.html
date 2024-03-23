@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="container-fluid px-2 px-md-4">
+      <div class="page-header min-height-400 border-radius-xl mt-6" style="background-image: url('https://img.freepik.com/free-photo/person-playing-3d-video-games-device_23-2151005751.jpg?t=st=1711184524~exp=1711188124~hmac=f4aa21ca49c697b922093b92273ba35d12164f80a2efcd94ca01ece9e42be844&w=996');">
+      </div>
+      <div class="card card-body mx-2 mx-md-4 mt-n6">
+        <div class="row gx-6 mb-2">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img src="https://th.bing.com/th/id/OIG4.rdBmRWG9435fO9WYs3n8?pid=ImgGn" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                Aryan Kyatham
+              </h5>
+              <p class="mb-0 font-weight-normal text-sm">
+                2nd Year Engineering Student
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0">
+              <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 active " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="true">
+                    <i class="material-icons text-lg position-relative">home</i>
+                    <span class="ms-1">Projects</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                    <i class="material-icons text-lg position-relative">email</i>
+                    <span class="ms-1">Profile</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 " data-bs-toggle="tab" href="javascript:;" role="tab" aria-selected="false">
+                    <i class="material-icons text-lg position-relative">settings</i>
+                    <span class="ms-1">Social</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+       
+                
+            <div class="col-12 col-xl-6">
+              <div class="card card-plain h-100">
+                <div class="card-header pb-0 p-3">
+                  <div class="row">
+                    <div class="col-md-8 d-flex align-items-center">
+                      <h6 class="mb-0">Profile Information</h6>
+                    </div>
+                    <div class="col-md-4 text-end">
+                      <a href="javascript:;">
+                        <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body p-3">
+                  <p class="text-sm">
+                    Hi, I’m Aryan Kyatham, on my way to conquer my dream role of Frontend Developer at Google.
+                  </p>
+                  <hr class="horizontal gray-light my-4">
+                  <ul class="list-group">
+                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Skills</strong>HTML, CSS, JS, Python, Flask, Django, AWS</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; 8657689680</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; kyathamaryan@gmail.com</li>
+                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; Mumbai, India</li>
+                    <li class="list-group-item border-0 ps-0 pb-0">
+                      <strong class="text-dark text-sm">Social:</strong> &nbsp;
+                      <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
+                        <i class="fab fa-facebook fa-lg"></i>
+                      </a>
+                      <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
+                        <i class="fab fa-twitter fa-lg"></i>
+                      </a>
+                      <a class="btn btn-linkedin btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+           
+           
+                <div class="col-6">
+                  <div class="card my-4">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                      <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                        <h6 class="text-white text-capitalize ps-3">Projects table</h6>
+                      </div>
+                    </div>
+                    <div class="card-body px-0 pb-2">
+                      <div class="table-responsive p-0">
+                        <table class="table align-items-center justify-content-center mb-0">
+                          <thead>
+                            <tr>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Project</th>
+                              <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center opacity-7 ps-2">Completion</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <div class="d-flex px-2">
+                                  <div>
+                                    <img src="{% static 'assets/img/small-logos/logo-asana.svg' %}" class="avatar avatar-sm rounded-circle me-2" alt="spotify">
+                                  </div>
+                                  <div class="my-auto">
+                                    <h6 class="mb-0 text-sm">Asana</h6>
+                                  </div>
+                                </div>
+                              </td>
+                            
+                              <td class="align-middle text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <span class="me-2 text-xs font-weight-bold">60%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="align-middle">
+                                <button class="btn btn-link text-secondary mb-0">
+                                  <i class="fa fa-ellipsis-v text-xs"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="d-flex px-2">
+                                  <div>
+                                    <img src="{% static 'assets/img/small-logos/github.svg' %}" class="avatar avatar-sm rounded-circle me-2" alt="invision">
+                                  </div>
+                                  <div class="my-auto">
+                                    <h6 class="mb-0 text-sm">Github</h6>
+                                  </div>
+                                </div>
+                              </td>
+                             
+                              <td class="align-middle text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <span class="me-2 text-xs font-weight-bold">100%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="align-middle">
+                                <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-ellipsis-v text-xs"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="d-flex px-2">
+                                  <div>
+                                    <img src="../assets/img/small-logos/logo-atlassian.svg" class="avatar avatar-sm rounded-circle me-2" alt="jira">
+                                  </div>
+                                  <div class="my-auto">
+                                    <h6 class="mb-0 text-sm">Atlassian</h6>
+                                  </div>
+                                </div>
+                              </td>
+                             
+                              <td class="align-middle text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <span class="me-2 text-xs font-weight-bold">30%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="30" style="width: 30%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="align-middle">
+                                <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-ellipsis-v text-xs"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="d-flex px-2">
+                                  <div>
+                                    <img src="{% static 'assets/img/small-logos/bootstrap.svg' %}" class="avatar avatar-sm rounded-circle me-2" alt="webdev">
+                                  </div>
+                                  <div class="my-auto">
+                                    <h6 class="mb-0 text-sm">Bootstrap</h6>
+                                  </div>
+                                </div>
+                              </td>
+                             
+                              <td class="align-middle text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <span class="me-2 text-xs font-weight-bold">80%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="80" style="width: 80%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="align-middle">
+                                <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-ellipsis-v text-xs"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="d-flex px-2">
+                                  <div>
+                                    <img src="{% static 'assets/img/small-logos/logo-slack.svg' %}" class="avatar avatar-sm rounded-circle me-2" alt="slack">
+                                  </div>
+                                  <div class="my-auto">
+                                    <h6 class="mb-0 text-sm">Slack</h6>
+                                  </div>
+                                </div>
+                              </td>
+                            
+                              <td class="align-middle text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <span class="me-2 text-xs font-weight-bold">0%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0" style="width: 0%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="align-middle">
+                                <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-ellipsis-v text-xs"></i>
+                                </button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div class="d-flex px-2">
+                                  <div>
+                                    <img src="../assets/img/small-logos/devto.svg" class="avatar avatar-sm rounded-circle me-2" alt="xd">
+                                  </div>
+                                  <div class="my-auto">
+                                    <h6 class="mb-0 text-sm">Devto</h6>
+                                  </div>
+                                </div>
+                              </td>
+                             
+                              <td class="align-middle text-center">
+                                <div class="d-flex align-items-center justify-content-center">
+                                  <span class="me-2 text-xs font-weight-bold">100%</span>
+                                  <div>
+                                    <div class="progress">
+                                      <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                              <td class="align-middle">
+                                <button class="btn btn-link text-secondary mb-0" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-ellipsis-v text-xs"></i>
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <iframe src="https://jmp.sh/qoXMvBYC" width="1100" height="400" style="border: none;"></iframe>
+            </div>
+<h2>GitHub Repositories</h2>
+<form method="get" action=".">
+    <label for="username">GitHub Username:</label>
+    <input type="text" id="username" name="username">
+    <button class="btn btn-dark" type="submit">Search</button>
+</form>
+
+{% if repos %}
+<div class="col-12 mt-4">
+  <div class="mb-5 ps-3">
+    <h6 class="mb-1">Projects</h6>
+    <p class="text-sm">Architects design houses</p>
+  </div>
+  <div class="row">
+    {% for repo in repos %}
+    <div class="col-xl-4 col-md-6 mb-4">
+      <div class="card card-blog card-plain">
+        <div class="card-header p-0 mt-n4 mx-3">
+          <a class="d-block shadow-xl border-radius-xl">
+            <img src="https://picsum.photos/500/300/?random&category=technology" alt="img-blur-shadow" class="img-fluid shadow border-radius-xl">
+          </a>
+        </div>
+        <div class="card-body p-3">
+          <h5><strong>Name:</strong> {{ repo.name }}</h5>
+          <a href="javascript:;">
+            <h3>
+              <strong>Language:</strong> {{ repo.language|default:"Not specified" }}
+            </h3>
+          </a>
+          <p class="mb-4 text-sm">
+            <strong>Description:</strong> {{ repo.description|default:"No description provided." }}
+          </p>
+          <div class="d-flex align-items-center justify-content-between">
+            <button type="button" class="btn btn-outline-primary btn-sm mb-0">View Project</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% else %}
+<p>No repositories found.</p>
+{% endif %}
+
+
+
+         
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}

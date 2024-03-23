@@ -1,0 +1,742 @@
+
+{%load static%}
+<html>
+    <head>
+        
+        <style>
+            body {
+                background-color: #fff;
+              
+                overflow-x: hidden;
+              }
+              
+              @font-face {
+                font-family: 'ESL Legend';
+                src: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Light.eot);
+                src: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Light.eot#iefix) format("embedded-opentype"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Light.woff2) format("woff2"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Light.woff) format("woff"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Light.ttf) format("truetype"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Light.svg#eicon) format("svg");
+                font-style: normal;
+                font-weight: 300;
+              }
+              @font-face {
+                font-family: 'ESL Legend';
+                src: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Regular.eot);
+                src: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Regular.eot#iefix) format("embedded-opentype"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Regular.woff2) format("woff2"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Regular.woff) format("woff"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Regular.ttf) format("truetype"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Regular.svg#eicon) format("svg");
+                font-style: normal;
+                font-weight: normal;
+              }
+              @font-face {
+                font-family: 'ESL Legend';
+                src: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Bold.eot);
+                src: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Bold.eot#iefix) format("embedded-opentype"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Bold.woff2) format("woff2"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Bold.woff) format("woff"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Bold.ttf) format("truetype"),
+                url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/fonts/legend/ESLLegend-Bold.svg#eicon) format("svg");
+                font-style: normal;
+                font-weight: bold;
+              }
+              
+              img {
+                max-width: 100%;
+              }
+              
+              .ag-format-container {
+                width: 1160px;
+                margin: 0 auto;
+              
+                position: relative;
+              }
+              
+              .ag-timeline-block {
+                padding: 300px 0;
+              }
+              .ag-timeline_title-box {
+                padding: 0 0 30px;
+              
+                text-align: center;
+              }
+              .ag-timeline_tagline {
+                font-size: 40px;
+                color: rgb(84, 89, 95);
+              }
+              .ag-timeline_title {
+                background-image: url(https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/images/bg.jpg);
+                background-repeat: no-repeat;
+                background-position: 50% 50%;
+              
+                background-size: cover;
+                -webkit-background-clip: text;
+                background-clip: text;
+                text-fill-color: transparent;
+                color: transparent;
+              
+                font-size: 80px;
+              }
+              
+              .ag-timeline_item {
+                margin: 0 0 50px;
+              
+                position: relative;
+              }
+              .ag-timeline_item:nth-child(2n) {
+                text-align: right;
+              }
+              
+              .ag-timeline {
+                display: inline-block;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+              
+                position: relative;
+              }
+              .ag-timeline_line {
+                width: 2px;
+                background-color: #393935;
+              
+                position: absolute;
+                top: 2px;
+                left: 50%;
+                bottom: 0;
+              
+                overflow: hidden;
+              
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform: translateX(-50%);
+                transform: translateX(-50%);
+              }
+              
+              .ag-timeline_line-progress {
+                width: 100%;
+                height: 20%;
+                background-color: #e83474;
+              }
+              
+              .ag-timeline-card_box {
+                padding: 0 0 20px 50%;
+              }
+              .ag-timeline_item:nth-child(2n) .ag-timeline-card_box {
+                padding: 0 50% 20px 0;
+              }
+              .ag-timeline-card_point-box {
+                display: inline-block;
+                margin: 0 14px 0 -28px;
+              }
+              .ag-timeline_item:nth-child(2n) .ag-timeline-card_point-box {
+                margin: 0 -28px 0 14px;
+              }
+              .ag-timeline-card_point {
+                height: 50px;
+                line-height: 50px;
+                width: 50px;
+                border: 3px solid #e83474;
+                background-color: #1d1d1b;
+              
+                text-align: center;
+                font-family: 'ESL Legend', sans-serif;
+                font-size: 20px;
+                color: #FFF;
+              
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+              }
+              .js-ag-active .ag-timeline-card_point {
+                color: #1d1d1b;
+                background-color: #e83474;
+              }
+              .ag-timeline-card_meta-box {
+                display: inline-block;
+              }
+              .ag-timeline-card_meta {
+                margin: 10px 0 0;
+              
+                font-family: 'ESL Legend', sans-serif;
+                font-weight: bold;
+                font-size: 28px;
+                color: #e83474;
+              }
+              .ag-timeline-card_item {
+                display: inline-block;
+                width: 45%;
+                margin: -77px 0 0;
+                background-color: #282828;
+              
+                opacity: 0;
+              
+                -webkit-border-radius: 6px;
+                -moz-border-radius: 6px;
+                border-radius: 6px;
+              
+                -webkit-box-shadow: 0 0 0 0 rgba(0,0,0,.5);
+                -moz-box-shadow: 0 0 0 0 rgba(0,0,0,.5);
+                -o-box-shadow: 0 0 0 0 rgba(0,0,0,.5);
+                box-shadow: 0 0 0 0 rgba(0,0,0,.5);
+              
+                -webkit-transition: -webkit-transform .5s, opacity .5s;
+                -moz-transition: -moz-transform .5s, opacity .5s;
+                -o-transition: -o-transform .5s, opacity .5s;
+                transition: transform .5s, opacity .5s;
+              
+                position: relative;
+              }
+              .ag-timeline_item:nth-child(2n+1) .ag-timeline-card_item {
+                -webkit-transform: translateX(-200%);
+                -moz-transform: translateX(-200%);
+                -ms-transform: translateX(-200%);
+                -o-transform: translateX(-200%);
+                transform: translateX(-200%);
+              }
+              .ag-timeline_item:nth-child(2n) .ag-timeline-card_item {
+                -webkit-transform: translateX(200%);
+                -moz-transform: translateX(200%);
+                -ms-transform: translateX(200%);
+                -o-transform: translateX(200%);
+                transform: translateX(200%);
+              }
+              .js-ag-active.ag-timeline_item:nth-child(2n+1) .ag-timeline-card_item,
+              .js-ag-active.ag-timeline_item:nth-child(2n) .ag-timeline-card_item {
+                opacity: 1;
+              
+                -webkit-transform: translateX(0);
+                -moz-transform: translateX(0);
+                -ms-transform: translateX(0);
+                -o-transform: translateX(0);
+                transform: translateX(0);
+              }
+              .ag-timeline-card_arrow {
+                height: 18px;
+                width: 18px;
+                margin-top: 20px;
+                background-color: #282828;
+              
+                z-index: -1;
+                position: absolute;
+                top: 0;
+                right: 0;
+              
+                -webkit-transform: rotate(45deg);
+                -moz-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                -o-transform: rotate(45deg);
+                transform: rotate(45deg);
+              }
+              .ag-timeline_item:nth-child(2n+1) .ag-timeline-card_arrow {
+                margin-left: calc(-18px / 2);
+                margin-right: calc(-18px / 2);
+              }
+              .ag-timeline_item:nth-child(2n) .ag-timeline-card_arrow {
+                margin-left: -10px;
+              
+                right: auto;
+                left: 0;
+              }
+              .ag-timeline-card_img {
+                width: 100%;
+              }
+              .ag-timeline-card_info {
+                padding: 20px 30px;
+              }
+              .ag-timeline-card_title {
+                display: none;
+                margin: 10px 0 0;
+              
+                font-family: 'ESL Legend', sans-serif;
+                font-weight: bold;
+                font-size: 28px;
+                color: #e83474;
+              }
+              .ag-timeline-card_desc {
+                line-height: 1.45;
+              
+                font-size: 16px;
+                color: #FFF;
+              }
+              
+              
+              @media only screen and (max-width: 979px) {
+                .ag-timeline_line {
+                  left: 30px;
+                }
+              
+                .ag-timeline_item:nth-child(2n) {
+                  text-align: left;
+                }
+              
+                .ag-timeline-card_box,
+                .ag-timeline_item:nth-child(2n) .ag-timeline-card_box {
+                  padding: 0 0 20px;
+                }
+                .ag-timeline-card_meta-box {
+                  display: none;
+                }
+                .ag-timeline-card_point-box,
+                .ag-timeline_item:nth-child(2n) .ag-timeline-card_point-box {
+                  margin: 0 0 0 8px;
+                }
+                .ag-timeline-card_point {
+                  height: 40px;
+                  line-height: 40px;
+                  width: 40px;
+                }
+                .ag-timeline-card_item {
+                  width: auto;
+                  margin: -65px 0 0 75px
+                }
+                .ag-timeline_item:nth-child(2n+1) .ag-timeline-card_item,
+                .ag-timeline_item:nth-child(2n) .ag-timeline-card_item {
+                  -webkit-transform: translateX(200%);
+                  -moz-transform: translateX(200%);
+                  -ms-transform: translateX(200%);
+                  -o-transform: translateX(200%);
+                  transform: translateX(200%);
+                }
+                .ag-timeline_item:nth-child(2n+1) .ag-timeline-card_arrow {
+                  right: auto;
+                  left: 0;
+                }
+                .ag-timeline-card_title {
+                  display: block;
+                }
+                .ag-timeline-card_arrow {
+                  margin-top: 12px;
+                }
+              }
+              
+              @media only screen and (max-width: 767px) {
+                .ag-format-container {
+                  width: 96%;
+                }
+              
+                .ag-timeline-card_img {
+                  height: auto;
+                  width: auto;
+                }
+              }
+              
+              @media only screen and (max-width: 639px) {
+                .ag-timeline_title {
+                  font-size: 60px;
+                }
+              
+                .ag-timeline-card_info {
+                  padding: 10px 15px;
+                }
+                .ag-timeline-card_desc {
+                  font-size: 14px;
+                }
+              }
+              
+              @media only screen and (max-width: 479px) {
+              
+              }
+              
+              @media (min-width: 768px) and (max-width: 979px) {
+                .ag-format-container {
+                  width: 750px;
+                }
+              
+              }
+              
+              @media (min-width: 980px) and (max-width: 1161px) {
+                .ag-format-container {
+                  width: 960px;
+                }
+              
+              }
+        </style>
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="{% static 'assets/css/nucleo-icons.css' %}" rel="stylesheet" />
+  <link href="{% static 'assets/css/nucleo-svg.css' %}" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  <link id="pagestyle" href="{% static 'assets/css/material-dashboard.css' %}?v=3.1.0" rel="stylesheet" />
+  <!-- Nepcha Analytics (nepcha.com) -->
+  <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
+  <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    </head>
+    <body>
+      <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main">
+        <div class="sidenav-header">
+          <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+          <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
+            <img src="{% static 'assets/img/logo-ct.png' %}" class="navbar-brand-img h-100" alt="main_logo">
+            <span class="ms-1 font-weight-bold text-white">PlacementPrep.AI</span>
+          </a>
+        </div>
+        <hr class="horizontal light mt-0 mb-2">
+        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+          <ul class="navbar-nav">
+
+            <li class="nav-item">
+              <a class="nav-link text-white " href="/overall">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                </div>
+                <span class="nav-link-text ms-1">Timeline</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white " href="/personal">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">bar_chart</i>
+                </div>
+                <span class="nav-link-text ms-1">Personalized Roadmap</span>
+              </a>
+            </li>
+            <li class="nav-item mt-3">
+              <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white " href="/mentor">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">person</i>
+                </div>
+                <span class="nav-link-text ms-1">Mentor</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white " href="/display_courses">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">login</i>
+                </div>
+                <span class="nav-link-text ms-1">Courses</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white " href="/jobs">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">assignment</i>
+                </div>
+                <span class="nav-link-text ms-1">Jobs</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white active bg-gradient-primary" href="/dashboard">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">dashboard</i>
+                </div>
+                <span class="nav-link-text ms-1">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white active bg-gradient-primary" href="/aboutamazon/">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">jobs</i>
+                </div>
+                <span class="nav-link-text ms-1">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white " href="../pages/tables.html">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">trending_up</i>
+                </div>
+                <span class="nav-link-text ms-1">Tables</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white " href="../pages/billing.html">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">leaderboard</i>
+                </div>
+                <span class="nav-link-text ms-1">Billing</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white " href="../pages/virtual-reality.html">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">assignment_turned_in</i>
+                </div>
+                <span class="nav-link-text ms-1">Virtual Reality</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="sidenav-footer position-absolute w-100 bottom-0 ">
+        
+        </div>
+      </aside>
+      <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true">
+          <div class="container-fluid py-1 px-3">
+            <nav aria-label="breadcrumb">
+              <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
+                <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
+              </ol>
+              <h6 class="font-weight-bolder mb-0">Dashboard</h6>
+            </nav>
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+              <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                <div class="input-group input-group-outline">
+                  <label class="form-label">Type here...</label>
+                  <input type="text" class="form-control">
+                </div>
+              </div>
+              <ul class="navbar-nav  justify-content-end">
+                <li class="nav-item d-flex align-items-center">
+                </li>
+             
+                <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                  <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                
+                  </a>
+                </li>
+                <li class="nav-item px-3 d-flex align-items-center">
+                  <a href="javascript:;" class="nav-link text-body p-0">
+                    <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                  </a>
+                </li>
+                <li class="nav-item dropdown pe-2 d-flex align-items-center">
+                  <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-bell cursor-pointer"></i>
+                  </a>
+                  <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4" aria-labelledby="dropdownMenuButton">
+                    <li class="mb-2">
+                      <a class="dropdown-item border-radius-md" href="javascript:;">
+                        <div class="d-flex py-1">
+                          <div class="my-auto">
+                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm  me-3 ">
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="text-sm font-weight-normal mb-1">
+                              <span class="font-weight-bold">New message</span> from Laur
+                            </h6>
+                            <p class="text-xs text-secondary mb-0">
+                              <i class="fa fa-clock me-1"></i>
+                              13 minutes ago
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li class="mb-2">
+                      <a class="dropdown-item border-radius-md" href="javascript:;">
+                        <div class="d-flex py-1">
+                          <div class="my-auto">
+                            <img src="../assets/img/small-logos/logo-spotify.svg" class="avatar avatar-sm bg-gradient-dark  me-3 ">
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="text-sm font-weight-normal mb-1">
+                              <span class="font-weight-bold">New album</span> by Travis Scott
+                            </h6>
+                            <p class="text-xs text-secondary mb-0">
+                              <i class="fa fa-clock me-1"></i>
+                              1 day
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item border-radius-md" href="javascript:;">
+                        <div class="d-flex py-1">
+                          <div class="avatar avatar-sm bg-gradient-secondary  me-3  my-auto">
+                            <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                              <title>credit-card</title>
+                              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                  <g transform="translate(1716.000000, 291.000000)">
+                                    <g transform="translate(453.000000, 454.000000)">
+                                      <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                                      <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                                    </g>
+                                  </g>
+                                </g>
+                              </g>
+                            </svg>
+                          </div>
+                          <div class="d-flex flex-column justify-content-center">
+                            <h6 class="text-sm font-weight-normal mb-1">
+                              Payment successfully completed
+                            </h6>
+                            <p class="text-xs text-secondary mb-0">
+                              <i class="fa fa-clock me-1"></i>
+                              2 days
+                            </p>
+                          </div>
+                        </div>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="nav-item d-flex align-items-center">
+                  <a href="/dashboard" class="nav-link text-body font-weight-bold px-0">
+                    <i class="fa fa-user me-sm-1"></i>
+                    <span class="d-sm-inline d-none">Dashboard</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        </div>
+    
+        </div>
+      </aside>
+      <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+    <div class="ag-timeline-block">
+        <div class="ag-timeline_title-box">
+          <div class="ag-timeline_tagline">Timeline</div>
+        </div>
+        <div class="btn-row" style="border-bottom: 4px solid #6f42c1; text-align: center; padding-bottom: 10px;">
+            {% for button_value in matched_buttons %}
+                <a href="{% url 'category' %}?roadmap={{ button_value }}" class="btn btn-primary mt-3" style="margin-right: 10px;">{{ button_value }}</a>
+            {% endfor %}
+        </div>
+        <section class="ag-section">
+          <div class="ag-format-container">
+            <div class="js-timeline ag-timeline">
+              <div class="js-timeline_line ag-timeline_line">
+                <div class="js-timeline_line-progress ag-timeline_line-progress"></div>
+              </div>
+              <div class="ag-timeline_list">
+                {% for phase, detail in phase_detail_pairs %}
+<div class="js-timeline_item ag-timeline_item">
+    <div class="ag-timeline-card_box">
+        <div class="js-timeline-card_point-box ag-timeline-card_point-box">
+            <div class="ag-timeline-card_point">{{ forloop.counter }}</div>  <!-- Use forloop.counter for numbers 1 to 7 -->
+        </div>
+        <div class="ag-timeline-card_meta-box">
+            <div class="ag-timeline-card_meta">{{ phase }}</div>
+        </div>
+    </div>
+    <div class="ag-timeline-card_item">
+        <div class="ag-timeline-card_inner">
+            <div class="ag-timeline-card_img-box">
+                <img src="https://raw.githubusercontent.com/SochavaAG/example-mycode/master/pens/timeline/images/img-13.png" class="ag-timeline-card_img" width="640" height="360" />
+            </div>
+            <div class="ag-timeline-card_info">
+                <div class="ag-timeline-card_title">{{ phase }}</div>
+                <div class="ag-timeline-card_desc" id="detail{{ forloop.counter }}">
+                    {{ detail|safe }}  <!-- Use |safe to render HTML tags -->
+                </div>
+            </div>
+        </div>
+        <div class="ag-timeline-card_arrow"></div>
+    </div>
+</div>
+{% endfor %}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        (function () {
+            $(document).ready(function () {
+              var agTimeline = $('.js-timeline');
+              var agTimelineLine = $('.js-timeline_line');
+              var agTimelineLineProgress = $('.js-timeline_line-progress');
+              var agTimelinePoint = $('.js-timeline-card_point-box');
+              var agTimelineItem = $('.js-timeline_item');
+              var agOuterHeight = $(window).outerHeight();
+              var agHeight = $(window).height();
+              var f = -1;
+              var agFlag = false;
+          
+              $(window).on('scroll', function () {
+                fnOnScroll();
+              });
+          
+              $(window).on('resize', function () {
+                fnOnResize();
+              });
+          
+              function fnOnScroll() {
+                var agPosY = $(window).scrollTop();
+                fnUpdateFrame();
+              }
+          
+              function fnOnResize() {
+                var agPosY = $(window).scrollTop();
+                agHeight = $(window).height();
+                fnUpdateFrame();
+              }
+          
+              function fnUpdateWindow() {
+                agFlag = false;
+          
+                agTimelineLine.css({
+                  top: agTimelineItem.first().find(agTimelinePoint).offset().top - agTimelineItem.first().offset().top,
+                  bottom: agTimeline.offset().top + agTimeline.outerHeight() - agTimelineItem.last().find(agTimelinePoint).offset().top
+                });
+          
+                if (f !== $(window).scrollTop()) {
+                  f = $(window).scrollTop();
+                  fnUpdateProgress();
+                }
+              }
+          
+              function fnUpdateProgress() {
+                var agTop = agTimelineItem.last().find(agTimelinePoint).offset().top;
+                var agPosY = $(window).scrollTop();
+          
+                var i = agTop + agPosY - $(window).scrollTop();
+                var a = agTimelineLineProgress.offset().top + agPosY - $(window).scrollTop();
+                var n = agPosY - a + agOuterHeight / 2;
+          
+                if (i <= agPosY + agOuterHeight / 2) {
+                  n = i - a;
+                }
+          
+                agTimelineLineProgress.css({ height: n + "px" });
+          
+                agTimelineItem.each(function () {
+                  var agTop = $(this).find(agTimelinePoint).offset().top;
+          
+                  if ((agTop + agPosY - $(window).scrollTop()) < agPosY + 0.5 * agOuterHeight) {
+                    $(this).addClass('js-ag-active');
+                  } else {
+                    $(this).removeClass('js-ag-active');
+                  }
+                });
+              }
+          
+              function fnUpdateFrame() {
+                if (!agFlag) {
+                  requestAnimationFrame(fnUpdateWindow);
+                }
+                agFlag = true;
+              }
+            });
+          })(jQuery);
+          document.addEventListener("DOMContentLoaded", function () {
+            const detailElements = document.querySelectorAll(".ag-timeline-card_desc");
+            detailElements.forEach(function (element) {
+                // Split the content into lines and add bullet points
+                const lines = element.innerHTML.split("<br>");
+                const nonEmptyLines = lines.filter(line => line.trim() !== ""); // Exclude empty lines
+                const bulletPoints = nonEmptyLines.map(line => `&#8226; ${line}`).join("<br>");
+                
+                // Set the updated content with bullet points and left alignment
+                element.innerHTML = bulletPoints;
+                element.style.textAlign = "left"; // Align text to the left
+            });
+        });
+        
+          
+      </script>
+      
+</body>
+
+</html>

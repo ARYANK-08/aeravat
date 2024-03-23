@@ -1,0 +1,73 @@
+{%  extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0; /* Reset margin */
+            padding: 0; /* Reset padding */
+            background-color: #f0f0f0; /* Background color */
+        }
+        .container {
+            width: 600px; /* Set width */
+            margin: 5vh auto 0; /* Center horizontally and move up by 5vh */
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        h1, p {
+            text-align: center;
+        }
+        .chart {
+            text-align: center; /* Center the chart */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Response Summary</h1>
+        <p>Your score: {{ score }}/{{ total_questions }} ({{ percentage_score }}%)</p>
+        <p>Your performance level: {{ performance }}</p>
+
+        <!-- Card with doughnut chart -->
+        <div class="card mb-3">
+            <div class="card-body p-3">
+                <div class="chart">
+                    <canvas id="doughnut-chart" class="chart-canvas" height="100px"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include the Chart.js library -->
+    <script src="{% static 'assets/js/plugins/chartjs.min.js' %}"></script>
+    <!-- Additional scripts for creating the chart -->
+    <script>
+        // Add your Chart.js code here to create the doughnut chart
+        // For example:
+        var ctx = document.getElementById('doughnut-chart').getContext('2d');
+        var myDoughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Correct', 'Incorrect'],
+                datasets: [{
+                    data: [{{ score }}, {{ incorrect_answers }}],
+                    backgroundColor: ['#36a2eb', '#ff6384']
+                }]
+            },
+            options: {
+                // Add your options here
+            }
+        });
+    </script>
+</body>
+</html>
+
+{% endblock %}
