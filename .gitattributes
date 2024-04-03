@@ -1,1 +1,5 @@
 *.html linguist-detectable=false
+
+*.SCSS linguist-detectable=false
+
+
